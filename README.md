@@ -1,0 +1,8 @@
+# DentPro-Ledgrer-breakdown
+Goes through the Dental Pro's Ledger and Patient database and generates a spreadsheet for each patient. This was crafted after the company's new databse handler botched the conversion and restructuring was moved in house... lucky me.
+
+Given that the Ledger and Patient databses are separate DBF files, one must be aware that a python method for converting one DBF will not always work on the other, as is the case here. The Patient.DBF file was handled effortlessly by the converter in version 1-5 before I went ahead and made a separate python script to pull all the data in a list, and then clean up everything before exporting it to a CSV file for version 6 and 7.
+
+The Ledger.DBF file had to be worked on by hand via Excel and manually converted into a CSV file for use. Both Ledger and Patient CSV files were stored in a /Core folder in the root.
+
+The python script here will take both files and store all the data into separate lists. With each patient given an ID number, the script will scour the ledger list variable and pull all sublists with said ID, then format a spreadsheet with those ledger transactions in proper date order. For anyone needing to separate payments from insurance companies per items (Such as Eaglesoft, etc.), there are columns where you may input the row which the Insurance payment appears, and it's ammount. To ensure that the proper amount is entered, there is a pair of checking systems in place. The first shows how much is being paid for a line item (Columns KL for insurance, M-R for personal payments/transfers, etc.). Columns U-BZ are used to show how much of a payment is being utilized until it's out of funds, in which a "Cleared" label will show in that column on the same row as the payment is.
